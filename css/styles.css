@@ -1,0 +1,12 @@
+/* border-box makes things easier and we can use it by default */
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  padding-top: 60px; 
+}

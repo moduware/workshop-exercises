@@ -1,0 +1,16 @@
+{
+  "id": "moemen.tile.hat-testing",
+  "name": "T&H workshop simulation",
+  "description": "This is a brand new T&H tile created for workshop simulation",
+
+  "version": "1.0.0",
+  "changes": "No changes",
+  "minumumAppVersion": "1.0.0",
+  "modules": [
+    "nexpaq.module.hat"
+  ],
+
+  "title": "T&H workshop simulation",
+  "color": "black",
+  "textColor": "white"
+}
