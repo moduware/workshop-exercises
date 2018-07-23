@@ -11,7 +11,7 @@ This repository is a webview tile boilerplate for beginners, intermediate and ex
 * Copy the tile files to your phone
 * For a detailed instructions with screenshots on how to do those steps above click [here](https://github.com/moduware/webview-tile-boilerplate/blob/master/WEBVIEW-TILE-INSTALL-INSTRUCTIONS.md)
 
-## What is Moduwate WebView Tile
+## What is Moduware WebView Tile
 
 Simple single page "website" that consists of bunch of HTML, CSS and JavaScript.
 
