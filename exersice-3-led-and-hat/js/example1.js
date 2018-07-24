@@ -21,12 +21,20 @@ document.addEventListener('WebViewApiReady',
 
 		var ledModuleUuid = '';
 		var hatModuleUuid = '';
+		var levelOne = 34;
+		var levelTwo = 38;
 
 		// use GetCurrentConfiguration method to quickly get the information of
 		// the current connected modules.
 		Moduware.v0.API.GetCurrentConfiguration().then(function(result) {
-			ledModuleUuid = result[0].modules[0].uuid;
-			hatModuleUuid = result[0].modules[1].uuid;
+
+			ledModuleUuid = result[0].modules.find(function(module) {
+				return module !== null && module !== undefined && module.typeId === 'moduware.module.led';
+			}).uuid;
+
+			hatModuleUuid = result[0].modules.find(function (module) {
+				return module !== null && module !== undefined && module.typeId === 'nexpaq.module.hat';
+			}).uuid;
 
 			//starting the the HAT sensor
 			Moduware.v0.API.Module.SendCommand(hatModuleUuid, 'StartSensor', []);
@@ -35,9 +43,6 @@ document.addEventListener('WebViewApiReady',
 			// what the first 2 parameters in the array means, interval and duration ??
 			Moduware.v0.API.Module.SendCommand(ledModuleUuid, 'StartFlashingRgbLeds', [65535, 65535, 255, 255, 255]);
 		});
-
-		var levelOne = 34;
-		var levelTwo = 38;
 
 		// start listening to the DataReceived event
 		Moduware.v0.API.Module.addEventListener('DataReceived',
