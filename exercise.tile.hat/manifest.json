@@ -1,0 +1,16 @@
+{
+  "id": "exercise.tile.hat",
+  "name": "HAT Tile Exercise Template",
+  "description": "Moduware workshop tile HAT exercise template",
+
+  "version": "1.0.0",
+  "changes": "Changes in this version",
+  "minumumAppVersion": "1.1.8",
+  "modules": [
+    "nexpaq.module.hat"
+  ],
+  
+  "title": "Tile Template",
+  "color": "#bada55",
+  "textColor": "white"
+}
