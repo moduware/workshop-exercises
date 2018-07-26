@@ -27,32 +27,52 @@ document.addEventListener('NexpaqAPIReady', function() {
 
 /** Handles data received from modules */
 function dataReceivedHandler(event) {
-  var targetModuleUuid = Nexpaq.Arguments[0];
+  let targetModuleUuid = Nexpaq.Arguments[0];
   // In most cases we don't need to work with any data but from our taget module
   if(event.moduleUuid != targetModuleUuid) return;
 
-  // Data from module available in form of variables:
-  // You can see data output in JS console
+  // Data from module available in form of variables. You can see data output in JS console.
   console.log('Data from module - dataSource: ', event.dataSource);
   console.log('Data from module - variables: ', event.variables.object_temperature);
 
+  let currentObjectTemperature, currentAmbientTemperature;
   
   /**
-   * Type of data from module can be different - values from sensor, replies to commands, reports about state changes ('heated' for example)
+   * Type of data from module can be different - values from sensor, replies to commands, reports about state changes
    * So it is better to filter data you are working with by checking it's source
    */
-
-  // The code below get from our HAT sensor and diplay it on our tile UI
   if(event.dataSource == 'SensorValue') {
-    let currentObjectTemperature = parseFloat(event.variables.object_temperature).toFixed(2);
-    let currentAmbientTemperature = parseFloat(event.variables.ambient_temperature).toFixed(2);
-    // Display received data in tile UI
+    // The code below get from our HAT sensor and diplay it on our tile UI
+    currentObjectTemperature = parseFloat(event.variables.object_temperature).toFixed(2);
+    currentAmbientTemperature = parseFloat(event.variables.ambient_temperature).toFixed(2);
+    
     document.getElementById("ambientTemperatureValue").innerHTML = currentAmbientTemperature;
     document.getElementById("objectTemperatureValue").innerHTML = currentObjectTemperature;
   }
+
+  let warningLevel = 37;
+  let dangerLevel = 40;
+
+  if (currentObjectTemperature < warningLevel) {
+    let allGoodText = '<span style="color: green;">' + 'All good here.' + '<span>';
+    document.getElementById("messageDisplayHeader").innerHTML = allGoodText;
+  }
+  
+  if (currentObjectTemperature >= warningLevel && currentObjectTemperature < dangerLevel) {
+    let warningText = '<span style="color: orange;">' + 'Warning: Getting warmer...' + '<span>';
+    document.getElementById("messageDisplayHeader").innerHTML = warningText;
+  }
+  
+  if (currentObjectTemperature >= dangerLevel) {
+    let dangerLevelText = '<span class="danger-text">' + 'DANGER! Too hot!' + '<span>';
+    document.getElementById("messageDisplayHeader").innerHTML = dangerLevelText;
+  }
+  
 }
 
 /** Handles tile exit event and perfoms last actions */
 function beforeExitActions() {
-  // TODO: turn off our module sensors on exit to cut power use
+  // Turn off our module sensors on exit to cut power use
+  let hatModuleUuid = Nexpaq.Arguments[0];
+  Moduware.v0.API.Module.SendCommand(hatModuleUuid, 'StopSensor', []);
 }
