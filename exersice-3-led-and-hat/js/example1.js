@@ -56,7 +56,7 @@ document.addEventListener('WebViewApiReady', function() {
       // level one 
       if(currentTemperature >= levelOne && currentTemperature < levelTwo) {
         // set flash to blue (not danger)
-        Moduware.v0.API.Module.SendCommand(ledModuleUuid, 'SetRGB', [0, 153, 0]);
+        Moduware.v0.API.Module.SendCommand(ledModuleUuid, 'SetRGB', [0, 0, 255]);
       }
 
       // level two

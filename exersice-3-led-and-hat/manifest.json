@@ -1,7 +1,7 @@
 {
-  "id": "moemen.tile.hat-testing",
-  "name": "T&H workshop simulation",
-  "description": "This is a brand new T&H tile created for workshop simulation",
+  "id": "moduware.tile.hat.and.led.workshop.3.and.4",
+  "name": "T&H and LED exersice 3, 4",
+  "description": "T&H and LED workshop exersice 3, 4",
 
   "version": "1.0.0",
   "changes": "No changes",
@@ -10,7 +10,7 @@
     "nexpaq.module.hat"
   ],
 
-  "title": "T&H workshop simulation",
+  "title": "T&H and LED workshop exersice 3, 4",
   "color": "black",
   "textColor": "white"
 }
