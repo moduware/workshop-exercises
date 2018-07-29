@@ -15,21 +15,27 @@ document.addEventListener('WebViewApiReady', function() {
 
   var ledModuleUuid = '';
   var hatModuleUuid = '';
-  var currentBrightness = 100;
+  var brightness = 100;
   var factor = 300;
   var previousTemperature = 0;
 
   // use GetCurrentConfiguration method to quickly get the information of
   // the current connected modules.
   Moduware.v0.API.GetCurrentConfiguration().then(function(result) {
-    ledModuleUuid = result[0].modules[0].uuid;
-    hatModuleUuid = result[0].modules[1].uuid;
+
+    ledModuleUuid = result[0].modules.find(function(module) {
+      return module !== null && module !== undefined && module.typeId === 'moduware.module.led';
+    }).uuid;
+
+    hatModuleUuid = result[0].modules.find(function(module) {
+      return module !== null && module !== undefined && module.typeId === 'nexpaq.module.hat';
+    }).uuid;
 
     //starting the the HAT sensor
     Moduware.v0.API.Module.SendCommand(hatModuleUuid, 'StartSensor', []);
 
     // put flash on (leds) to indicate that the HAT sensor is working
-    Moduware.v0.API.Module.SendCommand(ledModuleUuid, 'StartFlashingFlashLeds', [65535, 65535, currentBrightness]);
+    Moduware.v0.API.Module.SendCommand(ledModuleUuid, 'StartFlashingFlashLeds', [65535, 65535, brightness]);
   });
 
   // start listening to the DataReceived event
@@ -43,6 +49,7 @@ document.addEventListener('WebViewApiReady', function() {
 
       // parse the value of object temperature to number
       var currentTemperature = parseFloat(event.variables.object_temperature);
+      console.log('current temperature: ' + currentTemperature);
 
       // set the prev temp to current temp only if the prev temp is zero 
       // which indicates first time run
@@ -53,30 +60,30 @@ document.addEventListener('WebViewApiReady', function() {
       // temperature increases
       if(currentTemperature > previousTemperature) {
 
-        currentBrightness = currentBrightness + Math.ceil((currentTemperature - previousTemperature) * factor);
+        brightness = brightness + Math.ceil((currentTemperature - previousTemperature) * factor);
 
         // increase brigthness
-        if(currentBrightness < 9000) {
-          Moduware.v0.API.Module.SendCommand(ledModuleUuid, 'SetFlashes', [currentBrightness, currentBrightness]);
+        if(brightness < 9000) {
+          Moduware.v0.API.Module.SendCommand(ledModuleUuid, 'SetFlashes', [brightness, brightness]);
         }
       }
 
       // temperature decreases
       if(currentTemperature < previousTemperature) {
 
-        currentBrightness = currentBrightness - Math.ceil((previousTemperature - currentTemperature) * factor);
+        brightness = brightness - Math.ceil((previousTemperature - currentTemperature) * factor);
 
-        if(currentBrightness <= 0) {
-          currentBrightness = 100;
+        if(brightness <= 0) {
+          brightness = 100;
         }
 
         // decrease brightness
-        Moduware.v0.API.Module.SendCommand(ledModuleUuid, 'SetFlashes', [currentBrightness, currentBrightness]);
+        Moduware.v0.API.Module.SendCommand(ledModuleUuid, 'SetFlashes', [brightness, brightness]);
       }
 
       previousTemperature = currentTemperature;
       console.log('current temperature: ' + currentTemperature);
-      console.log('current brightness: ' + currentBrightness);
+      console.log('current brightness: ' + brightness);
     }
   });
 
