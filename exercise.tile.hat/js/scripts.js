@@ -37,15 +37,15 @@ function dataReceivedHandler(event) {
    * So it is better to filter data you are working with by checking it's source
    */
   if(event.dataSource == 'SensorValue') {
-    // The code below get from our HAT sensor and display it on our tile UI
+    // The code below get object temperature values from our HAT sensor and display it on our tile UI
     currentObjectTemperature = parseFloat(event.variables.object_temperature).toFixed(2);
     
-    document.getElementById("objectTemperatureValue").innerText = currentObjectTemperature;
+    document.getElementById('objectTemperatureValue').innerText = currentObjectTemperature;
   }
 
   let warningLevel = 37;
   let dangerLevel = 40;
-  let messageDisplayHeader = document.getElementById("messageDisplayHeader");
+  let messageDisplayHeader = document.getElementById('messageDisplayHeader');
 
   if (currentObjectTemperature < warningLevel) {
     messageDisplayHeader.innerText = 'All good here.';
