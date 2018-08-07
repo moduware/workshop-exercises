@@ -19,14 +19,7 @@
     <script src="js/scripts.js"></script>
   </head>
   <body>
-    <style>
-      /* We are using style tag here so we see our styles. Recommended way is put css styles on its own file. */
-      .object-temperature {
-        display: flex;
-        justify-content: space-between;
-      }
-    </style>
-
+    
     <center>
       <h1>I'm your tile template</h1>
       <h3>
@@ -34,10 +27,12 @@
       </h3>
     </center>
 
-    <div class="object-temperature">
-      <span>Object Temperature: </span>
-      <span id="objectTemperatureValue">No Sensor Value</span>
-    </div>
+    <table width="100%">
+      <tr>
+        <td>Object Temperature:</td>
+        <td><span id="objectTemperatureValue">No Sensor Value</span></td>
+      </tr>
+    </table>
 
     <br>
 
