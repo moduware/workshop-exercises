@@ -19,7 +19,7 @@ document.addEventListener('WebViewApiReady', function() {
   Moduware.v0.API.Module.addEventListener('DataReceived', dataReceivedHandler);
 
   /** We also may want to perform some actions when user leaves tile */
-  Moduware.v0.API.addEventListener('BeforeExit', function beforeExitActions() {
+  Moduware.v0.API.addEventListener('BeforeExit', function(event) {
     // Turn off our module sensors on exit to cut power use
     Moduware.v0.API.Module.SendCommand(Moduware.Arguments.uuid, 'StopSensor', []);
   });
