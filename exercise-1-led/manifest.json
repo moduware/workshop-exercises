@@ -1,14 +1,14 @@
 {
-  "id": "boilerplate.tile.led",
-  "name": "My Tile Template",
-  "description": "Moduware tile Template",
+  "id": "alex.tile.led-exercise",
+  "name": "Workshop Exercise 1 LED",
+  "description": "Workshop Exercise 1 LED",
   "version": "1.0.0",
   "changes": "Changes in this version",
   "minumumAppVersion": "1.1.8",
   "modules": [
     "moduware.module.led"
   ],
-  "title": "Tile Template",
+  "title": "LED Exerc1",
   "color": "#bada55",
   "textColor": "black"
 }
